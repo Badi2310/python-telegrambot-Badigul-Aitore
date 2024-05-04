@@ -1,7 +1,7 @@
 import telebot
+from telebot import types
 import requests
 import json
-
 
 my_API = "e054c4ccf3b3e01a3e97c256453da65d"
 with open("assets/token.txt", 'r') as file:
@@ -11,7 +11,7 @@ with open("assets/token.txt", 'r') as file:
 
 @bot.message_handler(commands = ["start"])
 def start(message):
-    bot.send_message(message.chat.id, "Привет, введи имя города (на английском)")
+    bot.send_message(message.chat.id, "Привет, введи имя города")
     
     
 @bot.message_handler(content_types = ["text"])
@@ -21,8 +21,9 @@ def get_weather(message):
 
     if request.status_code == 200:
         data = json.loads(request.text)
-        bot.reply_to(message, f"Температура: {data["main"]["temp"]}\n"
-                            f"Чувствуется как: {data["main"]["feels_like"]}\n"
+        celcium = "U+2103"
+        bot.reply_to(message, f"Температура: {round(data["main"]["temp"])}'C\n"
+                            f"Чувствуется как: {round(data["main"]["feels_like"])}\n"
                             f"Влажность: {data["main"]["humidity"]}\n"
                             f"Этот город в {data["sys"]["country"]}")
         
