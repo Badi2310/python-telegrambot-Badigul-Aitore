@@ -1,16 +1,15 @@
 import telebot
 from telebot import types
+from settings import token
+import os
 import requests
 import json
 
 my_API = "e054c4ccf3b3e01a3e97c256453da65d"
-with open("assets/token.txt", 'r') as file:
-    token = file.read()
-    bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(token)
     
-
-@bot.message_handler(commands = ["start"])
-def start(message):
+@bot.message_handler(commands = ['start'])
+async def start(message):
     bot.send_message(message.chat.id, "Привет, введи имя города")
     
     
